@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Users>
+  <User>
+    <UserID>10001</UserID>
+    <UserName>IshBandhu</UserName>
+    <UserRole>Admin</UserRole>
+    <Login>ishbandhu</Login>
+    <password>ishbandhu</password>
+  </User>
+  <User>
+    <UserID>10002</UserID>
+    <UserName>xyz</UserName>
+    <UserRole>Client</UserRole>
+    <Login>client</Login>
+    <password>client</password>
+  </User>
+  <User>
+    <UserID>10003</UserID>
+    <UserName>abc</UserName>
+    <UserRole>Partner</UserRole>
+    <Login>partner</Login>
+    <password>partner</password>
+  </User>
+  <User>
+    <UserID>10004</UserID>
+    <UserName>test</UserName>
+    <UserRole>test</UserRole>
+    <Login>test</Login>
+    <password>test</password>
+  </User>
+</Users>

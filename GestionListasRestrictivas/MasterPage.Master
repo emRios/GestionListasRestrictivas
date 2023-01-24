@@ -1,0 +1,132 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="GestionListasRestrictivas.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+ 
+    <head runat="server">
+
+
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title></title>
+
+                
+        <link href="CSS/TS.css" rel="stylesheet" />
+        <link href="CSS/bootstrap.min.css" rel="stylesheet" />        
+        <link href="CSS/Custom-Cs.css" rel="stylesheet" />
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+        <script src="Scripts/jquery-3.2.1.min.js"></script>
+        <%--<script src="Scripts/jquery-2.2.4.min.js"></script>--%>
+        <script src="Scripts/bootstrap.min.js"></script>
+        <script src="Scripts/popper.min.js"></script>
+        
+    <script type="text/javascript">
+
+        function ResetTimeOut() {
+            debugger;
+            var requestParms = new Sys.Net.WebRequest();
+            requestParms.set_url("KeepSessionAlive.aspx");
+            requestParms.set_httpVerb("POST");
+            var message = "hi";
+            requestParms.set_body(message);
+            requestParms.add_completed(DoNothing);
+            requestParms.invoke();
+        }
+
+        function DoNothing(executor, eventArgs) {
+
+        }
+        window.setInterval("ResetTimeOut();", 1800000);
+
+    </script>
+        <asp:ContentPlaceHolder ID="head" runat="server">
+
+
+        </asp:ContentPlaceHolder>
+
+
+    </head>
+
+    <body>
+        <form id="formentry"    runat="server" >
+
+            <div class="container flex-row" style=" margin-top:15px; margin-bottom:auto;   "   >
+
+                   <div class="row ">
+                      <div class="col">
+                         <div class="container ">
+                            <nav class="navbar navbar-expand-sm  navbar-dark justify-content-between text-white" style="background-color:#707172 !important">
+                               <ul class="navbar-nav mr-auto">
+                                  <li class="nav-item dropdown">
+                                     <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" id="navbardropingreso" data-toggle="dropdown">Carga de archivos</a>
+                                     <div class="dropdown-menu">                                     
+                                        <a class="dropdown-item" href="CargarListas.aspx"  >Cargar Listas</a>
+                                     </div>
+                                  </li>
+                                  <li class="nav-item dropdown ml-3" >
+                                     <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" id="navbardroppaciente" data-toggle="dropdown">Consultas</a>
+                                     <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="BusquedaIndividual.aspx">Busqueda Individual</a>
+                    <%--                    <a class="dropdown-item" href="BusquedaIndividual.aspx">Pacientes En Atención</a>   --%>                                     
+                                     </div>
+                                  </li> 
+                               <!-- Dropdown -->
+                                  <li class="nav-item dropdown ml-3">
+                                     <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" id="navbardropBasales" data-toggle="dropdown">Reportes</a>
+                                     <div class="dropdown-menu">                                        
+                                        <a class="dropdown-item" href="AdminUser/Admin.aspx">Reporte A</a>    
+                                        <a class="dropdown-item" href="ConsultaBasalesPaciente.aspx">Reporte B</a>    
+                                         
+                                     </div>
+                                  </li>
+                               <%--<div class="col-12">
+                                    <h5> Registros de Huellas Dactilares </h5>
+                               </div>--%>
+                               </ul>
+                               <ul class="navbar-nav justify-content-between">
+                            
+                                   <form class="  form-group align-content-end">      
+                                           <div class="img-thumbnail  mt-1 " style="background-color:#6F7071; border-color:#6F7071;">
+                                                <img class="p-0" src="images/userlg.png" style="display:block; margin:0 auto 0 auto; background-position: center;" / >
+                                            </div>
+                                            <div class="form-control-sm mt-1 border-danger">
+                                                    <input id="user" class="mr-0 form-control text-light font-weight-bold p-0" runat="server" type="text"  readonly  style="border-color:#6F7071; background-color:#6F7071; height:25px; width:80px;"/>                                            
+                                            </div>
+                                    
+                                            <div class="col-lg-1"></div>
+                                            <div class ="form-control-sm mt-1 border-danger">
+                                                <button class=" btn botonlgout " runat="server" type="submit" formaction="logout.aspx"></button>                         
+                                            </div>
+                                    </form>
+                                </ul>
+                            </nav>
+                         </div>
+
+                          <div class="container display:flex">
+                              <div class="row d-flex">
+                                 <div class="col">
+                                     <div class="contenedor "  >
+                                            
+                                    
+                                        <asp:ContentPlaceHolder id="MasterPageHolder" runat="server">
+                                                  
+                                        </asp:ContentPlaceHolder>
+
+                                     </div>
+                                 </div>
+                               </div>
+                          </div>
+
+                      </div>
+                   </div>
+            </div>
+
+
+            <!-- Include all compiled plugins (below), or include individual files as needed -->
+        </form>
+    </body>
+</html>
