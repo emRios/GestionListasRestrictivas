@@ -9,6 +9,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml;
+using System.Xml.Linq;
 using System.Xml.Schema;
 using System.Xml.Serialization;
 
@@ -58,13 +59,22 @@ namespace GestionListasRestrictivas
                 XmlDocument document = new XmlDocument();
                 using (StreamReader inputStreamReader = new StreamReader(FileUpload1.PostedFile.InputStream))
                 {
+                    //string responseString = inputStreamReader.ReadToEnd();
+                    //document.Load(inputStreamReader);
+
                     using (XmlReader reader = XmlReader.Create(inputStreamReader))
                     {
-                        document.Load(inputStreamReader);
+                        document.Load(reader);
                     }
                 }
 
-                sdnListSdnEntry listSdnEntry = ser.Deserialize<sdnListSdnEntry>(document.OuterXml);
+                XDocument sndList = XDocument.Parse(document.OuterXml);
+
+                var nls = XNamespace.Get("http://tempuri.org/sdnList.xsd");
+                var indis = sndList.Root.Descendants(nls + "sdnEntry");
+
+
+                //sdnListSdnEntry listSdnEntry = ser.Deserialize<sdnListSdnEntry>(document.OuterXml);
 
                 //ConvertXMLtoDataSet(FileUpload1);
 

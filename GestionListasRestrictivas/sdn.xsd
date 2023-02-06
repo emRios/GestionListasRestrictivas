@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://tempuri.org/sdnList.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="sdnList">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="publshInformation">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Publish_Date" type="xs:string" />
+							<xs:element name="Record_Count" type="xs:unsignedShort" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element maxOccurs="unbounded" name="sdnEntry">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:choice maxOccurs="unbounded">
+								<xs:element name="uid" type="xs:unsignedShort" />
+								<xs:element name="firstName" type="xs:string" />
+								<xs:element name="lastName" type="xs:string" />
+								<xs:element name="title" type="xs:string" />
+								<xs:element name="sdnType" type="xs:string" />
+								<xs:element name="remarks" type="xs:string" />
+								<xs:element name="programList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="program" type="xs:string" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="idList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="id">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedInt" />
+														<xs:element name="idType" type="xs:string" />
+														<xs:element name="idNumber" type="xs:string" />
+														<xs:element minOccurs="0" name="idCountry" type="xs:string" />
+														<xs:element minOccurs="0" name="issueDate" type="xs:string" />
+														<xs:element minOccurs="0" name="expirationDate" type="xs:string" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="akaList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="aka">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedShort" />
+														<xs:element name="type" type="xs:string" />
+														<xs:element name="category" type="xs:string" />
+														<xs:element name="lastName" type="xs:string" />
+														<xs:element minOccurs="0" name="firstName" type="xs:string" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="dateOfBirthList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="dateOfBirthItem">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedShort" />
+														<xs:element name="dateOfBirth" type="xs:string" />
+														<xs:element name="mainEntry" type="xs:boolean" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="placeOfBirthList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="placeOfBirthItem">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedShort" />
+														<xs:element name="placeOfBirth" type="xs:string" />
+														<xs:element name="mainEntry" type="xs:boolean" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="addressList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="address">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedShort" />
+														<xs:element minOccurs="0" name="address1" type="xs:string" />
+														<xs:element minOccurs="0" name="address2" type="xs:string" />
+														<xs:element minOccurs="0" name="address3" type="xs:string" />
+														<xs:element minOccurs="0" name="city" type="xs:string" />
+														<xs:element minOccurs="0" name="stateOrProvince" type="xs:string" />
+														<xs:element minOccurs="0" name="postalCode" type="xs:string" />
+														<xs:element name="country" type="xs:string" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="nationalityList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="nationality">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedShort" />
+														<xs:element name="country" type="xs:string" />
+														<xs:element name="mainEntry" type="xs:boolean" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="citizenshipList">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element maxOccurs="unbounded" name="citizenship">
+												<xs:complexType>
+													<xs:sequence>
+														<xs:element name="uid" type="xs:unsignedShort" />
+														<xs:element name="country" type="xs:string" />
+														<xs:element name="mainEntry" type="xs:boolean" />
+													</xs:sequence>
+												</xs:complexType>
+											</xs:element>
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+								<xs:element name="vesselInfo">
+									<xs:complexType>
+										<xs:sequence>
+											<xs:element minOccurs="0" name="callSign" type="xs:string" />
+											<xs:element minOccurs="0" name="vesselType" type="xs:string" />
+											<xs:element minOccurs="0" name="vesselFlag" type="xs:string" />
+											<xs:element minOccurs="0" name="grossRegisteredTonnage" type="xs:unsignedShort" />
+											<xs:element minOccurs="0" name="vesselOwner" type="xs:string" />
+											<xs:element minOccurs="0" name="tonnage" type="xs:unsignedShort" />
+										</xs:sequence>
+									</xs:complexType>
+								</xs:element>
+							</xs:choice>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
