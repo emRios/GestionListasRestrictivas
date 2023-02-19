@@ -30,13 +30,14 @@ namespace GestionListasRestrictivas
 
             string respuesta;
 
-            primer_nombre.Value = (primer_nombre.Value == "") ? "ZZZ" : primer_nombre.Value;
-            segundo_nombre.Value = (segundo_nombre.Value == "") ? "ZZZ" : segundo_nombre.Value;
-            primer_apellido.Value = (primer_apellido.Value == "") ? "ZZZ" : primer_apellido.Value;
-            segundo_apellido.Value = (segundo_apellido.Value == "") ? "ZZZ" : segundo_apellido.Value;
-            tercer_nombre.Value = (tercer_nombre.Value == "") ? "ZZZ" : tercer_nombre.Value;
+            primer_nombre.Value = primer_nombre.Value;
+            segundo_nombre.Value = (segundo_nombre.Value == "") ? string.Empty : segundo_nombre.Value;
+            primer_apellido.Value = primer_apellido.Value;
+            segundo_apellido.Value = (segundo_apellido.Value == "") ? string.Empty : segundo_apellido.Value;
+            tercer_nombre.Value = (tercer_nombre.Value == "") ? string.Empty : tercer_nombre.Value;
             codigo_asegurado.Value = (codigo_asegurado.Value == "") ? "0" : codigo_asegurado.Value;
-            documento_identificacion.Value = (documento_identificacion.Value == " ") ? "ZZZ" : documento_identificacion.Value;
+            documento_identificacion.Value = (documento_identificacion.Value == " ") ? string.Empty : documento_identificacion.Value;
+
 
 
             try
@@ -61,7 +62,7 @@ namespace GestionListasRestrictivas
                         OraSentenBanca.Parameters.Add(":p_codigo_asegurado", OracleDbType.Int32).Value = Convert.ToInt32(codigo_asegurado.Value);
                         OraSentenBanca.Parameters.Add(":p_documento_identificacion", OracleDbType.Varchar2).Value = documento_identificacion.Value.ToString();
 
-
+                        
                         //OraSentenBanca.Parameters.Add(":P_XML_OUT", OracleDbType.Clob).Direction = ParameterDirection.Output;
                         //OraSentenBanca.Parameters.Add(":P_COD_ERR", OracleDbType.Int64).Direction = ParameterDirection.Output;
 
@@ -135,5 +136,57 @@ namespace GestionListasRestrictivas
 
         }
 
+        protected void btn_conResultados_Click(object sender, EventArgs e)
+        {
+
+            string StrSql = "SA.PKG_GESTOR_LST_RESTICTIVAS.sp_con_validacion_indiv";
+
+           // gvResultadosValidacion.DataSource = null;
+            //gvResultadosValidacion.DataBind();
+
+            try
+            {
+                using (OracleConnection con = new OracleConnection(DataBaseConnections.ORACLEConnection()))
+                {
+
+
+                    using (OracleCommand OraSentenBanca = new OracleCommand(StrSql, con))
+                    {
+                        con.Open();
+
+                        OraSentenBanca.CommandTimeout = 60000;
+                        OraSentenBanca.CommandType = CommandType.StoredProcedure;
+
+                        OraSentenBanca.Parameters.Add("RESP_DATA", OracleDbType.RefCursor, ParameterDirection.ReturnValue);
+
+
+                        var da = new OracleDataAdapter(OraSentenBanca);
+                        var dt = new DataTable();
+                        da.Fill(dt);
+
+                        gvResultadosValidacion.DataSource = dt;
+                        gvResultadosValidacion.DataBind();
+
+                        //OraSentenBanca.Parameters.Add(":P_XML_OUT", OracleDbType.Clob).Direction = ParameterDirection.Output;
+                        //OraSentenBanca.Parameters.Add(":P_COD_ERR", OracleDbType.Int64).Direction = ParameterDirection.Output;
+
+                        //OraSentenBanca.ExecuteNonQuery();
+
+                        //myxml = (OracleClob)OraSentenBanca.Parameters[":P_XML_OUT"].Value;
+                        //int.TryParse(OraSentenBanca.Parameters[":P_COD_ERR"].Value.ToString(), out codErr);
+                        //respuesta = "si";
+
+                        // return respuesta;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message, ex);
+            }
+
+
+        }
     }
 }

@@ -46,7 +46,7 @@
 
                                         <asp:Button ID="CargarListaONU"
                                             Text="Upload file"
-                                            OnClick="CargarListaONU_Click"
+                                            OnClick="CargarListaOFAC_Click"
                                             runat="server"></asp:Button>
 
                                         <asp:Label ID="UploadStatusLabel"
@@ -70,7 +70,7 @@
 
                                         <asp:Button ID="CargarListaOFAC"
                                             Text="Upload file"
-                                            OnClick="CargarListaOFAC_Click"
+                                            OnClick="CargarListaONU_Click"
                                             runat="server"></asp:Button>
 
                                         <asp:Label ID="Label2"

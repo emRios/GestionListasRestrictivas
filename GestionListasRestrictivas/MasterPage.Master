@@ -23,6 +23,12 @@
         <%--<script src="Scripts/jquery-2.2.4.min.js"></script>--%>
         <script src="Scripts/bootstrap.min.js"></script>
         <script src="Scripts/popper.min.js"></script>
+
+        <!--12/02/2023 Erick Chajon pdfmake para generar pdfs desde js-->       
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.1/pdfmake.min.js" integrity="sha512-G332POpNexhCYGoyPfct/0/K1BZc4vHO5XSzRENRML0evYCaRpAUNxFinoIJCZFJlGGnOWJbtMLgEGRtiCJ0Yw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <!--Libreria js de pdfmake que contiene el tipo de fuente que usa para los pdf-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.1/vfs_fonts.min.js" integrity="sha512-6RDwGHTexMgLUqN/M2wHQ5KIR9T3WVbXd7hg0bnT+vs5ssavSnCica4Uw0EJnrErHzQa6LRfItjECPqRt4iZmA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   
         
     <script type="text/javascript">
 
