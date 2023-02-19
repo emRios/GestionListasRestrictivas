@@ -122,7 +122,7 @@ namespace GestionListasRestrictivas
                 listas.WriteTo(tx);
 
                 string strListas = sw.ToString();
-
+                   
               
                 sdnListSdnEntry listSdnEntry = ser.Deserialize<sdnListSdnEntry>(strListas);
 
