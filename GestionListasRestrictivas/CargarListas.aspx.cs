@@ -1,9 +1,12 @@
-﻿using GestionListasRestrictivas.Helpers.GestionListasRestrictivas;
+﻿using GestionListasRestrictivas.GestionListas;
+using GestionListasRestrictivas.Helpers;
+using GestionListasRestrictivas.Helpers.GestionListasRestrictivas;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -27,40 +30,24 @@ namespace GestionListasRestrictivas
 
 
         }
-        protected void CargarListaONU_Click(object sender, EventArgs e)
+        protected void CargarListaOFAC_Click(object sender, EventArgs e)
         {
 
 
-            //DataSet myDataSet = new DataSet();
-
-            //myDataSet.ReadXml("myXmlFile.xml");
-
-            //DataSet dsTest = new DataSet();
+            GestionarLIstasDeDatos gestionListas = new GestionarLIstasDeDatos();
           
-            //DataTable dt = dsTest.Tables[0];
-
-            // Specify the path on the server to
-            // save the uploaded file to.
-            String savePath = @"c:\temp\uploads\";
 
             // Before attempting to perform operations
             // on the file, verify that the FileUpload 
             // control contains a file.
             if (FileUpload1.HasFile)
             {
-                Serializer ser = new Serializer();
 
-                //using (StreamReader inputStreamReader = new StreamReader(FileUpload1.PostedFile.InputStream))
-                //{
-                //    var serializer = new XmlSerializer(typeof(sdnListSdnEntry));
-                //    result = (sdnListSdnEntry)serializer.Deserialize(inputStreamReader);
-                //}
 
                 XmlDocument document = new XmlDocument();
                 using (StreamReader inputStreamReader = new StreamReader(FileUpload1.PostedFile.InputStream))
                 {
-                    //string responseString = inputStreamReader.ReadToEnd();
-                    //document.Load(inputStreamReader);
+                    
 
                     using (XmlReader reader = XmlReader.Create(inputStreamReader))
                     {
@@ -68,36 +55,13 @@ namespace GestionListasRestrictivas
                     }
                 }
 
-                XDocument sndList = XDocument.Parse(document.OuterXml);
+                gestionListas.listaOfacXML = document.OuterXml;
+                gestionListas.CargarListasONU();
 
-                var nls = XNamespace.Get("http://tempuri.org/sdnList.xsd");
-                var indis = sndList.Root.Descendants(nls + "sdnEntry");
-
-
-                //sdnListSdnEntry listSdnEntry = ser.Deserialize<sdnListSdnEntry>(document.OuterXml);
-
-                //ConvertXMLtoDataSet(FileUpload1);
-
-
-                // Get the name of the file to upload.
-                String fileName = FileUpload1.FileName;
-
-                // Append the name of the file to upload to the path.
-                savePath += fileName;
-
-
-                // Call the SaveAs method to save the 
-                // uploaded file to the specified path.
-                // This example does not perform all
-                // the necessary error checking.               
-                // If a file with the same name
-                // already exists in the specified path,  
-                // the uploaded file overwrites it.
-                FileUpload1.SaveAs(savePath);
-
-                // Notify the user of the name of the file
-                // was saved under.
-                UploadStatusLabel.Text = "Your file was saved as " + fileName;
+               
+                //// Notify the user of the name of the file
+                //// was saved under.
+                //UploadStatusLabel.Text = "Your file was saved as " + fileName;
             }
             else
             {
@@ -106,36 +70,28 @@ namespace GestionListasRestrictivas
             }
 
         }
-        protected void CargarListaOFAC_Click(object sender, EventArgs e)
+        protected void CargarListaONU_Click(object sender, EventArgs e)
         {
-            // Specify the path on the server to
-            // save the uploaded file to.
-            String savePath = @"c:\temp\uploads\";
+           
 
             // Before attempting to perform operations
             // on the file, verify that the FileUpload 
             // control contains a file.
-            if (FileUpload1.HasFile)
+            if (FileUpload2.HasFile)
             {
-                // Get the name of the file to upload.
-                String fileName = FileUpload1.FileName;
-
-                // Append the name of the file to upload to the path.
-                savePath += fileName;
+                XmlDocument document = new XmlDocument();
+                using (StreamReader inputStreamReader = new StreamReader(FileUpload2.PostedFile.InputStream))
+                {
 
 
-                // Call the SaveAs method to save the 
-                // uploaded file to the specified path.
-                // This example does not perform all
-                // the necessary error checking.               
-                // If a file with the same name
-                // already exists in the specified path,  
-                // the uploaded file overwrites it.
-                FileUpload1.SaveAs(savePath);
+                    using (XmlReader reader = XmlReader.Create(inputStreamReader))
+                    {
+                        document.Load(reader);
+                    }
+                }
 
-                // Notify the user of the name of the file
-                // was saved under.
-                UploadStatusLabel.Text = "Your file was saved as " + fileName;
+               // gestionListas.listaOfacXML = document.OuterXml;
+               // gestionListas.CargarListasONU();
             }
             else
             {
