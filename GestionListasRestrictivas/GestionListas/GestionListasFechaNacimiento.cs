@@ -33,7 +33,7 @@ namespace GestionListasRestrictivas.GestionListas
     public class GestionListaFechasNacimiento
     {
 
-        public XDocument CrearXmlFechasNacimiento(XDocument sndList)
+        public XDocument CrearXmlFechasNacimientoOFAC(XDocument sndList)
         {
 
 
@@ -53,5 +53,22 @@ namespace GestionListasRestrictivas.GestionListas
             return dateOfBirthList;
 
         }
+
+        public XDocument CrearXmlFechasNacimientoONU(XDocument sndList) {
+
+            XDocument dbirthList = new XDocument(
+            new XElement("INDIVIDUAL_DATE_OF_BIRTH_LIST",
+            from individual in sndList.Descendants("INDIVIDUAL")
+            from address in individual.Descendants("INDIVIDUAL_DATE_OF_BIRTH")
+            select new XElement("INDIVIDUAL_DATE_OF_BIRTH",
+                    new XElement("DATAID", individual.Element("DATAID").Value),
+                    new XElement("TYPE_OF_DATE", address.SingleElementExists("TYPE_OF_DATE").Value),
+                    new XElement("DATE", address.SingleElementExists("DATE").Value)
+            )));
+
+
+            return dbirthList;
+        }
+
     }
 }

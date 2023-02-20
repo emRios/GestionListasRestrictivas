@@ -39,7 +39,7 @@ namespace GestionListasRestrictivas.GestionListas
 
         }
 
-        public XDocument CrearXmlDocumentos(XDocument sndList)
+        public XDocument CrearXmlDocumentosOFAC(XDocument sndList)
         {
 
             XDocument idList =
@@ -57,6 +57,28 @@ namespace GestionListasRestrictivas.GestionListas
 
             return idList;
 
+        }
+
+        public XDocument CrearXmlDocumentosONU(XDocument sndList)
+        {
+
+            XDocument documentsList = new XDocument(
+                  new XElement("INDIVIDUAL_DOCUMENT_LIST",
+                  from individual in sndList.Descendants("INDIVIDUAL")
+                  from address in individual.Descendants("INDIVIDUAL_DOCUMENT")
+                  select new XElement("INDIVIDUAL_DOCUMENT",
+                          new XElement("DATAID", individual.Element("DATAID").Value),
+                          new XElement("TYPE_OF_DOCUMENT", address.SingleElementExists("TYPE_OF_DOCUMENT").Value),
+                          new XElement("NUMBER", address.SingleElementExists("NUMBER").Value),
+                          new XElement("CITY_OF_ISSUE", address.SingleElementExists("CITY_OF_ISSUE").Value),
+                          new XElement("DATE_OF_ISSUE", address.SingleElementExists("DATE_OF_ISSUE").Value),
+                          new XElement("ISSUING_COUNTRY", address.SingleElementExists("ISSUING_COUNTRY").Value),
+                          new XElement("NOTE", address.SingleElementExists("NOTE").Value),
+                          new XElement("COUNTRY_OF_ISSUE", address.SingleElementExists("COUNTRY_OF_ISSUE").Value)
+                  )));
+
+            return documentsList;
+           
         }
     }
 

@@ -54,6 +54,8 @@ namespace GestionListasRestrictivas.GestionListas
     public class GestionarLIstasDeDatos
     {
 
+
+        GestionDatosPrincipales gestionDatosPrincipales =new GestionDatosPrincipales();
         GestionListaDirecciones listaDirecciones = new GestionListaDirecciones();
         GestionProgramList gestionProgramList = new GestionProgramList();
         GestionListaAkas gestionListaAkas = new GestionListaAkas();
@@ -62,8 +64,12 @@ namespace GestionListasRestrictivas.GestionListas
         GestionListasLugarNacimiento GestionListasLugarNacimiento = new GestionListasLugarNacimiento();
         GestionListasNacionalidad gestionListasNacionalidad = new GestionListasNacionalidad();
         GestionListasDocumentos gestionListasDocumentos = new GestionListasDocumentos();
+        GetionListasFechaActualizacion getionListasFechaActualizacion = new GetionListasFechaActualizacion();
+
 
         private XDocument sndList;
+        private XDocument sndListONU;
+        private XDocument sndprincipallist;
         private XDocument listadirecciones;
         private XDocument listaprogramas;
         private XDocument listaakas;
@@ -72,9 +78,12 @@ namespace GestionListasRestrictivas.GestionListas
         private XDocument listaslugarnacimiento;
         private XDocument listasnacionalidaes;
         private XDocument listasdocumentos;
+        private XDocument listasactualizacion;
 
 
         public string listaOfacXML;
+        public string listaOnuXML;
+        string listaOfac = "OFAC";
         string listaOnu = "ONU";
 
         public static XElement RemoveAllNamespaces(XElement e)
@@ -119,7 +128,7 @@ namespace GestionListasRestrictivas.GestionListas
             return xmlData;
         }
 
-        public void FormatXMLListas()
+        public void FormatXMLListaOFAC()
         {
 
             XmlDocument listXML = new XmlDocument();
@@ -133,8 +142,30 @@ namespace GestionListasRestrictivas.GestionListas
             listXML.LoadXml(listaOfacXML);
 
             sndList = XDocument.Parse(listXML.OuterXml);
+
             sndList.Root.Elements("sdnEntry")
             .Where(e => e.Element("sdnType").Value == "Entity")
+            .Remove();
+
+
+        }
+
+        public void FormatXMLListaONU()
+        {
+
+            XmlDocument listXML = new XmlDocument();
+
+            //Regex below finds strings that start with xmlns, may or may not have :and some text, then continue with =
+            //and ", have a streach of text that does not contain quotes and end with ". similar, will happen to an attribute
+            // that starts with xsi.
+            string strXMLPattern = @"xmlns(:\w+)?=""([^""]+)""|xsi(:\w+)?=""([^""]+)""";
+            listaOfacXML = Regex.Replace(listaOnuXML, strXMLPattern, "");
+
+            listXML.LoadXml(listaOnuXML);
+
+            sndListONU = XDocument.Parse(listXML.OuterXml);
+
+            sndListONU.Root.Elements("ENTITIES")
             .Remove();
 
 
@@ -185,14 +216,28 @@ namespace GestionListasRestrictivas.GestionListas
             }
         }
 
+
+
+        private int CargaListaDatosPrincipalesOFAC()
+        {
+            string tipoLista = "PRINCIPAL";
+            sndprincipallist = gestionDatosPrincipales.CrearXmlDatosPrincipalesOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, sndprincipallist);
+
+            return 0;
+
+        }
+            
+            
+
         private int CargarListaDirecciones()
         {
             //int CodError;
             //string DescError;
             
             string tipoLista = "ADDRESS";
-            listadirecciones = listaDirecciones.CrearXmlDirecciones(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listadirecciones);
+            listadirecciones = listaDirecciones.CrearXmlDireccionesOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listadirecciones);
 
             return 0;
         }
@@ -203,8 +248,8 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "PROGRAMS";
-            listaprogramas = gestionProgramList.CrearXmlProgramas(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listaprogramas);
+            listaprogramas = gestionProgramList.CrearXmlProgramasOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listaprogramas);
 
             return 0;
         }
@@ -215,8 +260,8 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "AKAS";
-            listaakas = gestionListaAkas.CrearXmlAkas(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listaakas);
+            listaakas = gestionListaAkas.CrearXmlAkasOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listaakas);
 
             return 0;
         }
@@ -227,8 +272,8 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "CITIZENSHIP";
-            listaciudadanias = gestionListaCiudadanias.CrearXmlCiudadanias(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listaciudadanias);
+            listaciudadanias = gestionListaCiudadanias.CrearXmlCiudadaniasOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listaciudadanias);
 
             return 0;
         }
@@ -239,8 +284,8 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "BDAY";
-            listafechasnacimiento = gestionListaFechasNacimiento.CrearXmlFechasNacimiento(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listafechasnacimiento);
+            listafechasnacimiento = gestionListaFechasNacimiento.CrearXmlFechasNacimientoOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listafechasnacimiento);
 
             return 0;
         }
@@ -251,8 +296,8 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "PBIRTH";
-            listaslugarnacimiento = GestionListasLugarNacimiento.CrearXmlLugaresNacimiento(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listaslugarnacimiento);
+            listaslugarnacimiento = GestionListasLugarNacimiento.CrearXmlLugaresNacimientoOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listaslugarnacimiento);
 
             return 0;
         }
@@ -263,8 +308,8 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "NATION";
-            listasnacionalidaes = gestionListasNacionalidad.CrearXmlNacionalidades(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listasnacionalidaes);
+            listasnacionalidaes = gestionListasNacionalidad.CrearXmlNacionalidadesOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listasnacionalidaes);
 
             return 0;
         }
@@ -275,16 +320,18 @@ namespace GestionListasRestrictivas.GestionListas
             //string DescError;
 
             string tipoLista = "IDS";
-            listasdocumentos = gestionListasDocumentos.CrearXmlDocumentos(sndList);
-            LoadXmlDataDB(listaOnu,tipoLista, listasdocumentos);
+            listasdocumentos = gestionListasDocumentos.CrearXmlDocumentosOFAC(sndList);
+            LoadXmlDataDB(listaOfac, tipoLista, listasdocumentos);
 
             return 0;
         }
 
-        public string CargarListasONU()
+        public string CargarListasOFAC()
         {
 
-            FormatXMLListas();
+            FormatXMLListaOFAC();
+
+            CargaListaDatosPrincipalesOFAC();
 
             CargarListaDirecciones();
 
@@ -303,6 +350,128 @@ namespace GestionListasRestrictivas.GestionListas
             CargarListaDocumentos();
 
             return "ok";
+        }
+
+
+        private int CargaListaDatosPrincipalesONU()
+        {
+
+            string tipoLista = "PRINCIPAL";
+            sndprincipallist = gestionDatosPrincipales.CrearXmlDatosPrincipalesONU(sndListONU);
+            LoadXmlDataDB(listaOnu, tipoLista, sndprincipallist);
+
+            return 0;
+
+        }
+
+        private int CargarListaDireccionesONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "ADDRESS";
+            listadirecciones = listaDirecciones.CrearXmlDireccionesONU(sndListONU);
+            LoadXmlDataDB(listaOnu, tipoLista, listadirecciones);
+
+            return 0;
+        }
+
+
+        private int CargarListaAliasONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "ALIAS";
+            listaakas = gestionListaAkas.CrearXmlAliasONU(sndListONU);
+            LoadXmlDataDB(listaOnu, tipoLista, listaakas);
+
+            return 0;
+        }
+
+        private int CargarListaFechasNacimientoONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "BDAY";
+            listafechasnacimiento = gestionListaFechasNacimiento.CrearXmlFechasNacimientoONU(sndListONU);
+            LoadXmlDataDB(listaOnu, tipoLista, listafechasnacimiento);
+
+            return 0;
+        }
+
+        private int CargarListaLugarNacimientoONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "PBIRTH";
+            listaslugarnacimiento = GestionListasLugarNacimiento.CrearXmlLugaresNacimientoONU(sndListONU);
+            LoadXmlDataDB(listaOnu, tipoLista, listaslugarnacimiento);
+
+            return 0;
+        }
+
+        private int CargarListaNaciondalidadesONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "NATION";
+            listasnacionalidaes = gestionListasNacionalidad.CrearXmlNacionalidadesONU(sndListONU);
+            LoadXmlDataDB(listaOfac, tipoLista, listasnacionalidaes);
+
+            return 0;
+        }
+
+        private int CargarListaDocumentosONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "IDS";
+            listasdocumentos = gestionListasDocumentos.CrearXmlDocumentosONU(sndListONU);
+            LoadXmlDataDB(listaOfac, tipoLista, listasdocumentos);
+
+            return 0;
+        }
+
+        private int CargarListaFechasActualizacionONU()
+        {
+            //int CodError;
+            //string DescError;
+
+            string tipoLista = "UPDATE";
+            listasactualizacion = getionListasFechaActualizacion.CrearXmlFechaActulizacionONU(sndListONU);
+            LoadXmlDataDB(listaOfac, tipoLista, listasactualizacion);
+
+            return 0;
+        }
+
+        public string CargarListasONU() {
+
+
+            FormatXMLListaONU();
+
+            CargaListaDatosPrincipalesONU();
+
+            CargarListaDireccionesONU();
+
+            CargarListaAliasONU();
+
+            CargarListaFechasNacimientoONU();
+
+            CargarListaLugarNacimientoONU();
+
+            CargarListaNaciondalidadesONU();
+
+            CargarListaDocumentosONU();
+
+            CargarListaFechasActualizacionONU();
+
+            return "ok";
+        
         }
 
 

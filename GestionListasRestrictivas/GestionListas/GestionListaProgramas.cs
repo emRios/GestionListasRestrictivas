@@ -24,7 +24,7 @@ namespace GestionListasRestrictivas.GestionListas
     public class GestionProgramList
     {
 
-        public XDocument CrearXmlProgramas(XDocument sndList)
+        public XDocument CrearXmlProgramasOFAC(XDocument sndList)
         {
 
 
@@ -42,5 +42,6 @@ namespace GestionListasRestrictivas.GestionListas
             return programsList;
 
         }
+
     }
 }

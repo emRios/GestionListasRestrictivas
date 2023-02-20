@@ -123,15 +123,6 @@ namespace GestionListasRestrictivas
         protected global::System.Web.UI.WebControls.Button btn_Registrar;
 
         /// <summary>
-        /// Control btn_validar.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btn_validar;
-
-        /// <summary>
         /// Control btn_conResultados.
         /// </summary>
         /// <remarks>

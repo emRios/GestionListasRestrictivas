@@ -34,7 +34,7 @@ namespace GestionListasRestrictivas
         {
 
 
-            GestionarLIstasDeDatos gestionListas = new GestionarLIstasDeDatos();
+            GestionarLIstasDeDatos gestionListasOFAC = new GestionarLIstasDeDatos();
           
 
             // Before attempting to perform operations
@@ -55,8 +55,8 @@ namespace GestionListasRestrictivas
                     }
                 }
 
-                gestionListas.listaOfacXML = document.OuterXml;
-                gestionListas.CargarListasONU();
+                gestionListasOFAC.listaOfacXML = document.OuterXml;
+                gestionListasOFAC.CargarListasOFAC();
 
                
                 //// Notify the user of the name of the file
@@ -66,13 +66,22 @@ namespace GestionListasRestrictivas
             else
             {
                 // Notify the user that a file was not uploaded.
-                UploadStatusLabel.Text = "You did not specify a file to upload.";
+                Label1.Text = "You did not specify a file to upload.";
             }
 
         }
         protected void CargarListaONU_Click(object sender, EventArgs e)
         {
-           
+
+            GestionarLIstasDeDatos gestionListasONU = new GestionarLIstasDeDatos();
+
+            //var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
+
+            //if (authCookie == null) return;
+            //var cookieValue = authCookie.Value;
+
+            //if (String.IsNullOrWhiteSpace(cookieValue)) return;
+            //var ticket = FormsAuthentication.Decrypt(cookieValue);
 
             // Before attempting to perform operations
             // on the file, verify that the FileUpload 
@@ -90,13 +99,13 @@ namespace GestionListasRestrictivas
                     }
                 }
 
-               // gestionListas.listaOfacXML = document.OuterXml;
-               // gestionListas.CargarListasONU();
+                gestionListasONU.listaOnuXML = document.OuterXml;
+                gestionListasONU.CargarListasONU();
             }
             else
             {
                 // Notify the user that a file was not uploaded.
-                UploadStatusLabel.Text = "You did not specify a file to upload.";
+                Label2.Text = "You did not specify a file to upload.";
             }
 
         }

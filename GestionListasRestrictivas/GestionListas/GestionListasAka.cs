@@ -33,7 +33,7 @@ namespace GestionListasRestrictivas.GestionListas
     public class GestionListaAkas
     {
 
-        public XDocument CrearXmlAkas(XDocument sndList)
+        public XDocument CrearXmlAkasOFAC(XDocument sndList)
         {
 
             XDocument akasList =
@@ -51,6 +51,23 @@ namespace GestionListasRestrictivas.GestionListas
                                        )));
 
             return akasList;
+
+        }
+
+        public XDocument CrearXmlAliasONU(XDocument sndList) {
+
+            XDocument aliasList = new XDocument(
+                            new XElement("INDIVIDUAL_ALIAS_LIST",
+                            from interval in sndList.Descendants("INDIVIDUAL")
+                            from alias in interval.Descendants("INDIVIDUAL_ALIAS")
+                            select new XElement("INDIVIDUAL_ALIAS",
+                                    new XElement("DATAID", interval.Element("DATAID").Value),
+                                    new XElement("QUALITY", alias.SingleElementExists("QUALITY").Value),
+                                    new XElement("ALIAS_NAME", alias.SingleElementExists("ALIAS_NAME").Value),
+                                    new XElement("NOTE", alias.SingleElementExists("NOTE").Value)
+                            )));
+
+            return aliasList;
 
         }
     }

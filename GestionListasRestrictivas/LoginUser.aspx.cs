@@ -68,7 +68,9 @@ namespace GestionListasRestrictivas
                                 break;
                             default:
                                 FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(1, username, DateTime.Now, DateTime.Now.AddMinutes(2880), true, roles, FormsAuthentication.FormsCookiePath);
+                               
                                 string hash = FormsAuthentication.Encrypt(ticket);
+
                                 HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, hash);
 
                                 if (ticket.IsPersistent)

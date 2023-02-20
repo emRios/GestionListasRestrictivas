@@ -51,22 +51,22 @@ namespace GestionListasRestrictivas
         protected global::System.Web.UI.WebControls.FileUpload FileUpload1;
 
         /// <summary>
-        /// Control CargarListaONU.
+        /// Control CargarListaOFAC.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CargarListaONU;
+        protected global::System.Web.UI.WebControls.Button CargarListaOFAC;
 
         /// <summary>
-        /// Control UploadStatusLabel.
+        /// Control Label1.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label UploadStatusLabel;
+        protected global::System.Web.UI.WebControls.Label Label1;
 
         /// <summary>
         /// Control FileUpload2.
@@ -78,13 +78,13 @@ namespace GestionListasRestrictivas
         protected global::System.Web.UI.WebControls.FileUpload FileUpload2;
 
         /// <summary>
-        /// Control CargarListaOFAC.
+        /// Control CargarListaONU.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button CargarListaOFAC;
+        protected global::System.Web.UI.WebControls.Button CargarListaONU;
 
         /// <summary>
         /// Control Label2.

@@ -83,6 +83,17 @@ namespace GestionListasRestrictivas.Helpers
         }
 
 
+        public static string SingleElementEmpty(this XElement element, XName param)
+        {
+            XElement xElement = new XElement(param, "");
+
+            if (element.IsEmpty == false)
+                return element.Value;
+
+            return "";
+        }
+
+
         public static XElement SingleElementExists(this XElement element, XName param)
         {
             XElement xElement = new XElement(param, "");

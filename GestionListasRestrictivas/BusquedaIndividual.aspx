@@ -139,11 +139,11 @@
                                     TabIndex="9"
                                     runat="server" Text="Registrar" OnClick="btn_Registrar_Click" />
                             </div>
-                            <div class="col-4 col-sm-4 border border-white col-form-label-sm">
+                            <%--<div class="col-4 col-sm-4 border border-white col-form-label-sm">
                                 <asp:Button ID="btn_validar" CssClass="btn btn-primary"
                                     TabIndex="9"
                                     runat="server" Text="Validar" OnClick="btn_validar_Click" />
-                            </div>
+                            </div>--%>
                             <div class="col-4 col-sm-4 border border-white col-form-label-sm">
                                 <asp:Button ID="btn_conResultados" CssClass="btn btn-primary"
                                     TabIndex="9"

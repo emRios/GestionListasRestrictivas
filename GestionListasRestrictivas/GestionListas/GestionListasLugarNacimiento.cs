@@ -26,7 +26,7 @@ namespace GestionListasRestrictivas.GestionListas
             public bool MainEntry { get; set; }
         }
 
-        public XDocument CrearXmlLugaresNacimiento(XDocument sndList)
+        public XDocument CrearXmlLugaresNacimientoOFAC(XDocument sndList)
         {
 
             XDocument placeOfBirthList =
@@ -42,6 +42,23 @@ namespace GestionListasRestrictivas.GestionListas
                                        )));
 
             return placeOfBirthList;
+
+        }
+
+        public XDocument CrearXmlLugaresNacimientoONU(XDocument sndList)
+        {
+
+            XDocument pbirthList = new XDocument(
+                new XElement("INDIVIDUAL_PLACE_OF_BIRTH_LIST",
+                from individual in sndList.Descendants("INDIVIDUAL")
+                from address in individual.Descendants("INDIVIDUAL_PLACE_OF_BIRTH")
+                select new XElement("INDIVIDUAL_PLACE_OF_BIRTH",
+                        new XElement("DATAID", individual.Element("DATAID").Value),
+                        new XElement("STATE_PROVINCE", address.SingleElementExists("STATE_PROVINCE").Value),
+                        new XElement("COUNTRY", address.SingleElementExists("COUNTRY").Value)
+                )));
+
+            return pbirthList;
 
         }
     }

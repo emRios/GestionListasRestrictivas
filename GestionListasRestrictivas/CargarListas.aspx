@@ -22,7 +22,7 @@
                     <div class="col-12">
 
                         <div class="row">
-                            <div id="MensajeError" class="col-sm-6 mt-2 alert alert-danger text-nowrap text-sm-center w-25 p-0" style="display: none">
+                            <div id="MensajeError" class="col-sm-6 mt-2 alert alert-danger text-nowrap text-sm-center w-25 p-0" >
                                 <asp:Label ID="vfmensajeError" runat="server" Text="" CssClass="line" EnableViewState="true"></asp:Label>
 
                             </div>
@@ -35,21 +35,19 @@
 
                                 <div class="row ">
                                     <div class="col-4 col-sm-4 border border-white  label-primary  ">
-                                        <label class="hi form-control-sm ">Cargar Lista ONU</label>
+                                        <label class="hi form-control-sm ">Cargar Lista OFAC</label>
                                     </div>
                                     <div class="col-6 col-sm-6 border border-white col-form-label-sm d-flex d-inline-flex">
-
-                                        <asp:FileUpload ID="FileUpload1"
-                                            runat="server"></asp:FileUpload>
+                                        <asp:FileUpload ID="FileUpload1"  runat="server"></asp:FileUpload>
                                     </div>
                                     <div class="col-2 col-sm-2 border border-white col-form-label-sm d-flex d-inline-flex">
 
-                                        <asp:Button ID="CargarListaONU"
+                                        <asp:Button ID="CargarListaOFAC"
                                             Text="Upload file"
                                             OnClick="CargarListaOFAC_Click"
                                             runat="server"></asp:Button>
 
-                                        <asp:Label ID="UploadStatusLabel"
+                                        <asp:Label ID="Label1"
                                             runat="server">
                                         </asp:Label>
                                     </div>
@@ -60,15 +58,14 @@
 
                                 <div class="row ">
                                     <div class="col-4 col-sm-4   border border-white  label-primary  ">
-                                        <label class="hi form-control-sm ">Cargar lista OFAC </label>
+                                        <label class="hi form-control-sm ">Cargar lista ONU </label>
                                     </div>
                                     <div class="col-6 col-sm-6 border border-white col-form-label-sm">
-                                        <asp:FileUpload ID="FileUpload2"
-                                            runat="server"></asp:FileUpload>
+                                        <asp:FileUpload ID="FileUpload2" runat="server"></asp:FileUpload>
                                     </div>
                                     <div class="col-2 col-sm-2 border border-white col-form-label-sm">
 
-                                        <asp:Button ID="CargarListaOFAC"
+                                        <asp:Button ID="CargarListaONU"
                                             Text="Upload file"
                                             OnClick="CargarListaONU_Click"
                                             runat="server"></asp:Button>
@@ -86,7 +83,8 @@
                 </div>
         </ContentTemplate>
         <Triggers>
-            <asp:PostBackTrigger ControlID="CargarListaONU" />
+            <asp:PostBackTrigger ControlID="CargarListaOFAC" />
+             <asp:PostBackTrigger ControlID="CargarListaONU" />
         </Triggers>
     </asp:UpdatePanel>
 

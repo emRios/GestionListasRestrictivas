@@ -281,6 +281,7 @@
       <DependentUpon>Error.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="GestionListas\GestionDatosPrincipales.cs" />
     <Compile Include="GestionListas\GestionListaProgramas.cs" />
     <Compile Include="GestionListas\GestionListas.cs" />
     <Compile Include="GestionListas\GestionListasAka.cs" />
@@ -289,6 +290,7 @@
     <Compile Include="GestionListas\GestionListasLugarNacimiento.cs" />
     <Compile Include="GestionListas\GestionListasNacionalidad.cs" />
     <Compile Include="GestionListas\GestiosDocumentosIdentificacion.cs" />
+    <Compile Include="GestionListas\GetionListasFechaActualizacion.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

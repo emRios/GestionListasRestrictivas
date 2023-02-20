@@ -27,12 +27,12 @@ namespace GestionListasRestrictivas.GestionListas
             public bool MainEntry { get; set; }
         }
 
-        public XDocument CrearXmlNacionalidades(XDocument sndList)
+        public XDocument CrearXmlNacionalidadesOFAC(XDocument sndList)
         {
 
             XDocument nationalityList =
                   new XDocument(
-                          new XElement("sdnaddressList",
+                          new XElement("sdnnationalityList",
                                       from sndE in sndList.Element("sdnList").Elements("sdnEntry")
                                       from adresses in sndE.ElementExists("nationalityList").Elements("nationality")
                                       select new XElement("nationalityList",
@@ -45,5 +45,26 @@ namespace GestionListasRestrictivas.GestionListas
             return nationalityList;
 
         }
+
+
+        public XDocument CrearXmlNacionalidadesONU(XDocument sndList) {
+
+
+            XDocument naciolalityList = new XDocument(
+                    new XElement("NATIONALITY_LIST",
+                                from interval in sndList.Descendants("INDIVIDUAL")
+                                from lastDay in interval.ElementExists("NATIONALITY").Elements("VALUE")
+                                select new XElement("LAST_DAY_UPDATED",
+                                             new XElement("DATAID", interval.Element("DATAID").Value),
+                                             new XElement("VALUE", lastDay.SingleElementEmpty("VALUE")))
+                        ));
+
+
+            return naciolalityList;
+
+        }
+
+
+
     }
 }

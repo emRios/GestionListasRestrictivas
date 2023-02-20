@@ -50,7 +50,7 @@ namespace GestionListasRestrictivas.GestionListas
     public class GestionListaDirecciones
     {
 
-        public XDocument CrearXmlDirecciones(XDocument sndList) 
+        public XDocument CrearXmlDireccionesOFAC(XDocument sndList) 
         {
 
            
@@ -69,11 +69,34 @@ namespace GestionListasRestrictivas.GestionListas
                                                     new XElement("Adress4", adresses.SingleElementExists("address4").Value),
                                                     new XElement("city", adresses.SingleElementExists("city").Value),
                                                     new XElement("postalCode", adresses.SingleElementExists("postalCode").Value),
+                                                    new XElement("stateOrProvince", adresses.SingleElementExists("stateOrProvince").Value),
                                                     new XElement("country", adresses.SingleElementExists("country").Value)
                                        )));
 
             return addressesList;
 
         }
+
+        public XDocument CrearXmlDireccionesONU(XDocument sndList) {
+
+
+            XDocument ONUaddressList = new XDocument(
+                       new XElement("INDIVIDUAL_ADDRESS_LIST",
+                       from individual in sndList.Descendants("INDIVIDUAL")
+                       from address in individual.Descendants("INDIVIDUAL_ADDRESS")
+                       select new XElement("INDIVIDUAL_ADDRESS",
+                               new XElement("DATAID", individual.Element("DATAID").Value),
+                               new XElement("COUNTRY", address.SingleElementExists("COUNTRY").Value),
+                               new XElement("NOTE", address.SingleElementExists("NOTE").Value),
+                               new XElement("STREET", address.SingleElementExists("STREET").Value),
+                               new XElement("CITY", address.SingleElementExists("CITY").Value)
+                       )));
+
+            return ONUaddressList;
+
+        }
+
+
+
     }
 }

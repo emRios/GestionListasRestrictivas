@@ -28,7 +28,7 @@ namespace GestionListasRestrictivas.GestionListas
     public class GestionListaCiudadanias
     {
 
-        public XDocument CrearXmlCiudadanias(XDocument sndList)
+        public XDocument CrearXmlCiudadaniasOFAC(XDocument sndList)
         {
 
             XDocument citizenShipList =
@@ -46,6 +46,7 @@ namespace GestionListasRestrictivas.GestionListas
             return citizenShipList;
 
         }
+
     }
 
 }
