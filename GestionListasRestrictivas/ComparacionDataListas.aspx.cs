@@ -30,7 +30,7 @@ namespace GestionListasRestrictivas
              
 
 
-            string StrSql = "sa.PKG_GESTOR_LST_RESTICTIVAS.spi_lr_prm_scheduler";
+            string StrSql = "sa.PKG_GESTOR_LST_RESTRICTIVAS.spi_lr_prm_scheduler";
             //string DescError;
             int CodError;
 

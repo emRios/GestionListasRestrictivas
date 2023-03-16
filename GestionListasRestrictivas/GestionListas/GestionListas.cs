@@ -175,7 +175,7 @@ namespace GestionListasRestrictivas.GestionListas
         {
 
 
-            string StrSql = "sa.PKG_GESTOR_LST_RESTICTIVAS.spi_lst_carga_lista_xml";
+            string StrSql = "sa.PKG_GESTOR_LST_RESTRICTIVAS.spi_lst_carga_lista_xml";
             string DescError;
             int CodError;
 
@@ -420,7 +420,7 @@ namespace GestionListasRestrictivas.GestionListas
 
             string tipoLista = "NATION";
             listasnacionalidaes = gestionListasNacionalidad.CrearXmlNacionalidadesONU(sndListONU);
-            LoadXmlDataDB(listaOfac, tipoLista, listasnacionalidaes);
+            LoadXmlDataDB(listaOnu, tipoLista, listasnacionalidaes);
 
             return 0;
         }
@@ -432,7 +432,7 @@ namespace GestionListasRestrictivas.GestionListas
 
             string tipoLista = "IDS";
             listasdocumentos = gestionListasDocumentos.CrearXmlDocumentosONU(sndListONU);
-            LoadXmlDataDB(listaOfac, tipoLista, listasdocumentos);
+            LoadXmlDataDB(listaOnu, tipoLista, listasdocumentos);
 
             return 0;
         }
@@ -444,7 +444,7 @@ namespace GestionListasRestrictivas.GestionListas
 
             string tipoLista = "UPDATE";
             listasactualizacion = getionListasFechaActualizacion.CrearXmlFechaActulizacionONU(sndListONU);
-            LoadXmlDataDB(listaOfac, tipoLista, listasactualizacion);
+            LoadXmlDataDB(listaOnu, tipoLista, listasactualizacion);
 
             return 0;
         }

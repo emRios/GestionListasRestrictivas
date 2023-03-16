@@ -75,17 +75,7 @@ namespace GestionListasRestrictivas
 
             GestionarLIstasDeDatos gestionListasONU = new GestionarLIstasDeDatos();
 
-            //var authCookie = HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName];
 
-            //if (authCookie == null) return;
-            //var cookieValue = authCookie.Value;
-
-            //if (String.IsNullOrWhiteSpace(cookieValue)) return;
-            //var ticket = FormsAuthentication.Decrypt(cookieValue);
-
-            // Before attempting to perform operations
-            // on the file, verify that the FileUpload 
-            // control contains a file.
             if (FileUpload2.HasFile)
             {
                 XmlDocument document = new XmlDocument();

@@ -100,6 +100,7 @@
   <ItemGroup>
     <Content Include="AdminUser\Admin.aspx" />
     <Content Include="ClientUser\Client.aspx" />
+    <Content Include="ComparacionDataListas.aspx" />
     <Content Include="CSS\bootstrap-reboot.css" />
     <Content Include="CSS\bootstrap-reboot.min.css" />
     <Content Include="CSS\bootstrap.css" />
@@ -271,6 +272,13 @@
     <Compile Include="ClientUser\Client.aspx.cs">
       <DependentUpon>Client.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComparacionDataListas.aspx.cs">
+      <DependentUpon>ComparacionDataListas.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ComparacionDataListas.aspx.designer.cs">
+      <DependentUpon>ComparacionDataListas.aspx</DependentUpon>
     </Compile>
     <Compile Include="DataBaseConnections.cs" />
     <Compile Include="Default.aspx.cs">
