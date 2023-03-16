@@ -33,6 +33,15 @@ namespace GestionListasRestrictivas
         protected global::System.Web.UI.UpdatePanel upbusqueda_individual;
 
         /// <summary>
+        /// Control MensajeError.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl MensajeError;
+
+        /// <summary>
         /// Control vfmensajeError.
         /// </summary>
         /// <remarks>
@@ -114,6 +123,33 @@ namespace GestionListasRestrictivas
         protected global::System.Web.UI.HtmlControls.HtmlInputText documento_identificacion;
 
         /// <summary>
+        /// Control hisconoptions.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl hisconoptions;
+
+        /// <summary>
+        /// Control fecha_busqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox fecha_busqueda;
+
+        /// <summary>
+        /// Control usuario_busqueda.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputText usuario_busqueda;
+
+        /// <summary>
         /// Control btn_Registrar.
         /// </summary>
         /// <remarks>
@@ -130,6 +166,24 @@ namespace GestionListasRestrictivas
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btn_conResultados;
+
+        /// <summary>
+        /// Control btn_Limpiar.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_Limpiar;
+
+        /// <summary>
+        /// Control btn_busqueda_dprev.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btn_busqueda_dprev;
 
         /// <summary>
         /// Control pnlContainer.

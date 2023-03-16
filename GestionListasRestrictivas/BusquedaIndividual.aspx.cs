@@ -13,8 +13,12 @@ namespace GestionListasRestrictivas
 {
     public partial class BusquedaIndividual : System.Web.UI.Page
     {
+        private string cssLabel = "col-12 col-sm-12  text-nowrap text-sm-center w-25 p-0";
         protected void Page_Load(object sender, EventArgs e)
         {
+            string role = ((System.Web.Security.FormsIdentity)((System.Security.Principal.GenericPrincipal)HttpContext.Current.User).Identity).Ticket.UserData;
+
+            hisconoptions.Visible = (role == "Administrator");
 
             if (!this.Page.User.Identity.IsAuthenticated)
             {
@@ -23,11 +27,29 @@ namespace GestionListasRestrictivas
 
         }
 
+        protected void setSucccessMessage(string mensaje) 
+        {
+            MensajeError.Style.Remove("display");
+            MensajeError.Style.Add("display", "block");
+            MensajeError.Attributes.Add("class", cssLabel + " alert alert-success");
+            vfmensajeError.Text = mensaje;
+
+        }
+
+        protected void setErrorMessage(string mensaje)
+        {
+            MensajeError.Style.Remove("display");
+            MensajeError.Style.Add("display", "block");
+            MensajeError.Attributes.Add("class", cssLabel + " alert alert-danger");
+            vfmensajeError.Text = "Error en registro" + " " + mensaje;
+
+        }
+
         protected void btn_Registrar_Click(object sender, EventArgs e)
         {
             string Usuario = HttpContext.Current.User.Identity.Name;
 
-            string StrSql = "SA.PKG_GESTOR_LST_RESTICTIVAS.sp_lst_carga_cons_individual";
+            string StrSql = "SA.PKG_GESTOR_LST_RESTRICTIVAS.sp_lst_carga_cons_individual";
 
 
             primer_nombre.Value = primer_nombre.Value;
@@ -72,16 +94,19 @@ namespace GestionListasRestrictivas
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message, ex);
+                setErrorMessage(ex.Message);
+                return;
             }
 
             consultarRegistros(Usuario);
+
+            setSucccessMessage("Registro de persona exitoso");
 
         }
 
         protected void consultarRegistros(string usuario)
         {
-            string StrSql = "SA.PKG_GESTOR_LST_RESTICTIVAS.sp_con_registros_individual";
+            string StrSql = "SA.PKG_GESTOR_LST_RESTRICTIVAS.sp_con_registros_individual";
 
             try
             {
@@ -95,6 +120,7 @@ namespace GestionListasRestrictivas
 
                         OraSentenBanca.CommandTimeout = 60000;
                         OraSentenBanca.CommandType = CommandType.StoredProcedure;
+
 
                         OraSentenBanca.Parameters.Add("P_USUARIO", OracleDbType.Varchar2, usuario, ParameterDirection.Input);
                         OraSentenBanca.Parameters.Add("P_CUR_DATA", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -112,6 +138,8 @@ namespace GestionListasRestrictivas
             }
             catch (Exception ex)
             {
+                setErrorMessage(ex.Message);
+                return;
 
             }
         }
@@ -119,7 +147,7 @@ namespace GestionListasRestrictivas
         protected void validarResultados(string usuario)
         {
             string Usuario = HttpContext.Current.User.Identity.Name;
-            string StrSql = "SA.PKG_GESTOR_LST_RESTICTIVAS.spi_lst_proc_validacion_ind";
+            string StrSql = "SA.PKG_GESTOR_LST_RESTRICTIVAS.spi_lst_proc_validacion_ind";
 
             try
             {
@@ -135,8 +163,6 @@ namespace GestionListasRestrictivas
                         OraSentenBanca.CommandType = CommandType.StoredProcedure;
                         OraSentenBanca.Parameters.Add(":p_usuario", OracleDbType.Varchar2).Value = usuario;
 
-
-
                         OraSentenBanca.ExecuteNonQuery();
 
                     }
@@ -144,8 +170,8 @@ namespace GestionListasRestrictivas
             }
             catch (Exception ex)
             {
-
-                throw new Exception(ex.Message, ex);
+                setErrorMessage(ex.Message);
+                return;
             }
 
 
@@ -157,9 +183,10 @@ namespace GestionListasRestrictivas
         {
             string Usuario = HttpContext.Current.User.Identity.Name;
 
+
             validarResultados(Usuario);
 
-            string StrSql = "SA.PKG_GESTOR_LST_RESTICTIVAS.sp_con_validacion_indiv";
+            string StrSql = "SA.PKG_GESTOR_LST_RESTRICTIVAS.sp_con_validacion_indiv";
 
 
             try
@@ -186,14 +213,113 @@ namespace GestionListasRestrictivas
                         gvResultadosValidacion.DataSource = dt;
                         gvResultadosValidacion.DataBind();
 
+                        setSucccessMessage("Validación exitosa");
+
+                    }
+                }
+            }
+
+
+            catch (Exception ex)
+            {
+                setErrorMessage(ex.Message);
+                return; ;
+            }   
+        }
+
+        protected void btn_Limpiar_Click(object sender, EventArgs e)
+        {
+            string Usuario = HttpContext.Current.User.Identity.Name;
+
+            primer_nombre.Value = string.Empty;
+            segundo_nombre.Value = string.Empty; 
+            primer_apellido.Value = string.Empty;
+            segundo_apellido.Value = string.Empty;
+            tercer_nombre.Value = string.Empty;
+            codigo_asegurado.Value = string.Empty;
+            documento_identificacion.Value = string.Empty;
+
+            string StrSql = "SA.PKG_GESTOR_LST_RESTRICTIVAS.spi_lst_limpia_dataconsulta";
+
+            try
+            {
+                using (OracleConnection con = new OracleConnection(DataBaseConnections.ORACLEConnection()))
+                {
+
+
+                    using (OracleCommand OraSentenBanca = new OracleCommand(StrSql, con))
+                    {
+                        con.Open();
+
+                        OraSentenBanca.CommandTimeout = 60000;
+                        OraSentenBanca.CommandType = CommandType.StoredProcedure;
+
+                        OraSentenBanca.Parameters.Add("P_USUARIO", OracleDbType.Varchar2, Usuario, ParameterDirection.Input);
+                        //OraSentenBanca.Parameters.Add("P_CUR_DATA", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                        var da = new OracleDataAdapter(OraSentenBanca);
+                        var dt = new DataTable();
+                        da.Fill(dt);
+
+                        gvResultadosValidacion.DataSource = dt;
+                        gvResultadosValidacion.DataBind();
+
+                        setSucccessMessage("Datos borrados exitosamente");
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                setErrorMessage(ex.Message);
+                return;
+            }
+        }
+
+        protected void btn_busqueda_dprev_Click(object sender, EventArgs e)
+        {
+
+            string Usuario = HttpContext.Current.User.Identity.Name;
+            string role = ((System.Web.Security.FormsIdentity)((System.Security.Principal.GenericPrincipal)HttpContext.Current.User).Identity).Ticket.UserData;
+
+            usuario_busqueda.Value = (usuario_busqueda.Value == "") ? Usuario : usuario_busqueda.Value;
+
+            string StrSql = "SA.PKG_GESTOR_LST_RESTRICTIVAS.sp_con_his_val_indiv";
+
+            try
+            {
+                using (OracleConnection con = new OracleConnection(DataBaseConnections.ORACLEConnection()))
+                {
+                    using (OracleCommand OraSentenBanca = new OracleCommand(StrSql, con))
+                    {
+                        con.Open();
+
+                        OraSentenBanca.CommandTimeout = 60000;
+                        OraSentenBanca.CommandType = CommandType.StoredProcedure;
+
+                        OraSentenBanca.Parameters.Add("P_FECHA_CONSULTA", OracleDbType.Varchar2).Value = fecha_busqueda.Text;
+                        OraSentenBanca.Parameters.Add("P_USUARIO_CONSULTA", OracleDbType.Varchar2).Value = usuario_busqueda.Value;
+                        OraSentenBanca.Parameters.Add("P_CUR_DATA", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                        var da = new OracleDataAdapter(OraSentenBanca);
+                        var dt = new DataTable();
+                        da.Fill(dt);
+
+                        gvResultadosValidacion.DataSource = dt;
+                        gvResultadosValidacion.DataBind();
+
+                        setSucccessMessage("Consulta Exitosa");
+
                     }
                 }
             }
             catch (Exception ex)
             {
 
-                throw new Exception(ex.Message, ex);
+                setErrorMessage(ex.Message);
+                return;
             }
+
         }
     }
 }
